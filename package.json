@@ -35,7 +35,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "dev": "react-scripts start"
+    "dev": "react-scripts start",
+    "mac": "react-scripts --openssl-legacy-provider start"
   },
   "eslintConfig": {
     "extends": [

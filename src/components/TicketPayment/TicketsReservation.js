@@ -3,20 +3,20 @@ import { toast } from 'react-toastify';
 import { StyledTypography, ButtonConfirm, ValueTotal } from './style';
 import useSaveTicket from '../../hooks/api/useSaveTicket';
 
-export default function TicketReservation({ arrayValues }) {
+export default function TicketReservation({ arrayValues, setFillCard }) {
   return (
     <>
       {arrayValues.chosenTicket === 'online' ?
-        <ConfirmTicket arrayValues={arrayValues}/>
+        <ConfirmTicket arrayValues={arrayValues} setFillCard={setFillCard}/>
         :
         arrayValues.choiceOfHosting &&
-        <ConfirmTicket arrayValues={arrayValues}/>
+        <ConfirmTicket arrayValues={arrayValues} setFillCard={setFillCard}/>
       }
     </>
   );
 }
 
-function ConfirmTicket({ arrayValues }) {
+function ConfirmTicket({ arrayValues, setFillCard }) {
   const [ticketTypeId, setTicketTypeId] = useState();
   const { saveTicketLoading, saveTicket } = useSaveTicket();
   
@@ -35,6 +35,7 @@ function ConfirmTicket({ arrayValues }) {
     try{
       await saveTicket({ ticketTypeId });
       toast('O Ticket foi reservado com sucesso!');
+      setFillCard(true);
     }catch(error) {
       toast('Ocorreu um erro');
     }
