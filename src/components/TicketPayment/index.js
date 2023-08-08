@@ -15,6 +15,7 @@ export default function TicketPayment() {
         </>
         :
         <StyledTypography variant="h4" margin="20px">Pagamento não disponível</StyledTypography>
+
       }
     </>
 
