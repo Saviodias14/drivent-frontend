@@ -16,6 +16,8 @@ export default function TicketReservation({ arrayValues }) {
 
 function ConfirmTicket({ arrayValues }) {
   const [idTicket, setIdTicket] = useState();
+  // teste
+  console.log('teste');
 
   useEffect(() => {
     if(arrayValues.chosenTicket==='online') {
