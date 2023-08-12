@@ -4,7 +4,7 @@ import {
   Route,
   Navigate
 } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Countdown from './pages/Countdown';
 import Enroll from './pages/Enroll';
@@ -60,6 +60,7 @@ function ProtectedRouteGuard({ children }) {
   const token = useToken();
 
   if (!token) {
+    toast('Você precisa estar logado para acessar essa página!');
     return <Navigate to="/sign-in" />;
   }
 
