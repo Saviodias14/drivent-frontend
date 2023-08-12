@@ -1,17 +1,15 @@
 import { useContext, useState } from 'react';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import AuthLayout from '../../layouts/Auth';
+import useSignUp from '../../hooks/api/useSignUp';
+import EventInfoContext from '../../contexts/EventInfoContext';
 
 import Input from '../../components/Form/Input';
 import Button from '../../components/Form/Button';
 import { Row, Title, Label } from '../../components/Auth';
 import Link from '../../components/Link';
-
-import EventInfoContext from '../../contexts/EventInfoContext';
-
-import useSignUp from '../../hooks/api/useSignUp';
 
 export default function Enroll() {
   const [email, setEmail] = useState('');
@@ -23,6 +21,26 @@ export default function Enroll() {
   const navigate = useNavigate();
   
   const { eventInfo } = useContext(EventInfoContext);
+
+  const gitAuth = async(event) => {
+    event.preventDefault();
+    const GITHUB_URL = 'https://github.com/login/oauth/authorize';
+    const CLIENT_ID = 'b6f11093042790df58f4';
+    const params = new URLSearchParams({
+      response_type: 'code',
+      scope: 'user',
+      client_id: CLIENT_ID,
+      redirect_uri: 'http://localhost:3000/sign-in'
+    });
+    const authURL = `${GITHUB_URL}?${params.toString()}`;
+
+    try {
+      window.location.href = authURL;
+      toast('Cadastro realizado!');
+    } catch (err) {
+      toast('Não foi possível fazer o cadastro!');
+    }
+  };
 
   async function submit(event) {
     event.preventDefault();
@@ -52,7 +70,10 @@ export default function Enroll() {
           <Input label="E-mail" type="text" fullWidth value={email} onChange={e => setEmail(e.target.value)} />
           <Input label="Senha" type="password" fullWidth value={password} onChange={e => setPassword(e.target.value)} />
           <Input label="Repita sua senha" type="password" fullWidth value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-          <Button type="submit" color="primary" fullWidth disabled={loadingSignUp}>Inscrever</Button>
+          <div>
+            <Button type="submit" color="primary" disabled={loadingSignUp}>Inscrever</Button>
+            <Button onClick={gitAuth} type="submit" color="primary" disabled={loadingSignUp}>Git Hub</Button>
+          </div>
         </form>
       </Row>
       <Row>

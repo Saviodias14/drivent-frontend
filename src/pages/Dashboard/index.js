@@ -2,11 +2,10 @@ import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-import EventInfoContext from '../../contexts/EventInfoContext';
-
 import NavigationBar from '../../components/Dashboard/NavigationBar';
-
 import DashboardLayout from '../../layouts/Dashboard';
+
+import EventInfoContext from '../../contexts/EventInfoContext';
 
 export default function Dashboard() {
   const { eventInfo } = useContext(EventInfoContext);
@@ -14,7 +13,6 @@ export default function Dashboard() {
   return (
     <DashboardLayout background={eventInfo.backgroundImageUrl}>
       <NavigationBar />
-
       <Container>
         <Outlet />
       </Container>

@@ -26,4 +26,11 @@ export const Row = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+  p{
+    margin: 7px 0;
+  }
+  form > div:last-child {
+    display: flex;
+    justify-content: space-around;
+  }
 `;

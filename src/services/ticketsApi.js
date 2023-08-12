@@ -16,7 +16,6 @@ export async function getTicketTypes(token) {
       Authorization: `Bearer ${token}`,
     },
   });
-
   return response.data;
 }
 //
