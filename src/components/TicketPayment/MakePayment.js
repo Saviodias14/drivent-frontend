@@ -8,6 +8,9 @@ import { Subtitle } from './paymentTitle.style.js';
 import { CardForm } from './paymentCard.style.js';
 import useTicketId from '../../hooks/api/useTicketId.js';
 
+import useSavePayment from '../../hooks/api/useSavePayment.js';
+import { toast } from 'react-toastify';
+
 const MakePayment = () => {
   const { ticketId } = useTicketId();
   const { savePayment } = useSavePayment();
@@ -59,8 +62,8 @@ const MakePayment = () => {
     if (isValidCard) {
       const paymentData = {
         ticketId,
-        cardIssuer: cardName,
-        cardLastDigits: cardNumber
+        cardIssuer: values.cardName,
+        cardLastDigits: values.cardNumber
       };
       savePayment(paymentData);
       toast('Pagamento realizado com sucesso.');
