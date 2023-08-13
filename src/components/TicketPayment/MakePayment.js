@@ -6,8 +6,11 @@ import 'react-credit-cards/es/styles-compiled.css';
 import { SelectionBox, Box, ConfirmButton } from './paymentBox.style.js';
 import { Subtitle } from './paymentTitle.style.js';
 import { CardForm } from './paymentCard.style.js';
+import useTicketId from '../../hooks/api/useTicketId.js';
 
 const MakePayment = () => {
+  const { ticketId } = useTicketId();
+  const { savePayment } = useSavePayment();
   const [values, setValues] = useState({
     cardName: '',
     cardNumber: '',
@@ -54,9 +57,16 @@ const MakePayment = () => {
   const handlePayment = () => {
     const isValidCard = validateCard(true);
     if (isValidCard) {
-      // Lógica para processar o pagamento
+      const paymentData = {
+        ticketId,
+        cardIssuer: cardName,
+        cardLastDigits: cardNumber
+      };
+      savePayment(paymentData);
+      toast('Pagamento realizado com sucesso.');
     } else {
       // Lógica para tratar o cartão inválido
+      toast('Erro');
     }
   };
 
