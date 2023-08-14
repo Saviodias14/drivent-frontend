@@ -4,7 +4,7 @@ import HotelChoice from './HotelChoice';
 import TicketReservation from './TicketsReservation';
 import { useEffect, useState } from 'react';
 
-export default function TicketType() {
+export default function TicketType({ setFillCard }) {
   const { ticketTypes, ticketTypesLoading } = useTicket();
   const [chosenTicket, setChosenTicket] = useState(null);
   const [choiceOfHosting, setChoiceOfHosting] = useState(null);
@@ -52,7 +52,7 @@ export default function TicketType() {
     <>
       {tickets.map((t) => <TicketChoice ticket={t} arrayValues={arrayValues} />)}
       <HotelChoice arrayValues={arrayValues}/>
-      <TicketReservation arrayValues={arrayValues} />
+      <TicketReservation arrayValues={arrayValues} setFillCard={setFillCard} />
     </>
   );
 }

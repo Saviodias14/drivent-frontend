@@ -4,11 +4,16 @@ import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 
 import { SelectionBox, Box, ConfirmButton } from './paymentBox.style.js';
-import { ticketsType, hotelsType } from './paymentData';
-import { Subtitle } from './paymentTitle.style';
+import { Subtitle } from './paymentTitle.style.js';
 import { CardForm } from './paymentCard.style.js';
+import useTicketId from '../../hooks/api/useTicketId.js';
 
-const MakePayment = ({ ticketType, hotelType }) => {
+import useSavePayment from '../../hooks/api/useSavePayment.js';
+import { toast } from 'react-toastify';
+
+const MakePayment = () => {
+  const { ticketId } = useTicketId();
+  const { savePayment } = useSavePayment();
   const [values, setValues] = useState({
     cardName: '',
     cardNumber: '',
@@ -55,19 +60,26 @@ const MakePayment = ({ ticketType, hotelType }) => {
   const handlePayment = () => {
     const isValidCard = validateCard(true);
     if (isValidCard) {
-      // Lógica para processar o pagamento
+      const paymentData = {
+        ticketId,
+        cardIssuer: values.cardName,
+        cardLastDigits: values.cardNumber
+      };
+      savePayment(paymentData);
+      toast('Pagamento realizado com sucesso.');
     } else {
       // Lógica para tratar o cartão inválido
+      toast('Erro');
     }
   };
 
   return (
     <>
       <Box selection={true} width={'290px'} heigth={'108px'}>
-        <h2>{`${ticketsType[ticketType-1].type} + ${hotelsType[hotelType-1].type}`}</h2>
-        <p>{`R$ ${Number(ticketsType[ticketType-1].price) + Number(hotelsType[hotelType-1].price)}`}</p>
+        <h2>{'tal + online'}</h2>
+        <p>{'R$ valor + valor'}</p>
       </Box>
-      <Subtitle>Pagamento</Subtitle>
+      <Subtitle>Pagamento</Subtitle>  
       <SelectionBox>
         <Cards
           cvc={values.cardSecurityCode}

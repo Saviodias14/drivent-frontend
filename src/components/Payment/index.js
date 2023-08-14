@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Title, Subtitle } from './paymentTitle.style';
 import EventChoices from './EventChoices';
-import MakePayment from './MakePayment.js';
+import MakePayment from '../TicketPayment/MakePayment.js';
 
 const Payment = () => {
   const [fillCard, setFillCard] = useState(false);
